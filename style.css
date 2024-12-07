@@ -1,0 +1,201 @@
+/* style.css */
+
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background-color: #2c3e50;
+  color: #ecf0f1;
+  position: relative;
+}
+
+.circle {
+  width: 300px;
+  height: 300px;
+  border: 10px solid #867419;
+  border-radius: 50%;
+  margin: 20px auto;
+  position: relative;
+  background: conic-gradient(
+      black 0deg 9.47deg,
+      red 9.47deg 18.94deg,
+      black 18.94deg 28.41deg,
+      red 28.41deg 37.88deg,
+      black 37.88deg 47.35deg,
+      red 47.35deg 56.82deg,
+      black 56.82deg 66.29deg,
+      red 66.29deg 75.76deg,
+      black 75.76deg 85.23deg,
+      green 85.23deg 94.7deg,
+      black 94.7deg 104.17deg,
+      red 104.17deg 113.64deg,
+      black 113.64deg 123.11deg,
+      red 123.11deg 132.58deg,
+      black 132.58deg 142.05deg,
+      red 142.05deg 151.52deg,
+      black 151.52deg 160.99deg,
+      red 160.99deg 170.46deg,
+      black 170.46deg 179.93deg,
+      red 179.93deg 189.4deg,
+      black 189.4deg 198.87deg,
+      red 198.87deg 208.34deg,
+      black 208.34deg 217.81deg,
+      red 217.81deg 227.28deg,
+      black 227.28deg 236.75deg,
+      red 236.75deg 246.22deg,
+      black 246.22deg 255.69deg,
+      red 255.69deg 265.16deg,
+      green 265.16deg 274.63deg,
+      red 274.63deg 284.1deg,
+      black 284.1deg 293.57deg,
+      red 293.57deg 303.04deg,
+      black 303.04deg 312.51deg,
+      red 312.51deg 321.98deg,
+      black 321.98deg 331.45deg,
+      red 331.45deg 340.92deg,
+      black 340.92deg 350.39deg,
+      red 350.39deg 360deg
+  );
+  transform: rotate(-90deg);
+  transition: transform 4s ease-out;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.circle::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 180px;
+  height: 180px;
+  background: repeating-linear-gradient(
+    45deg,
+    #7a2d2b,
+    #7a2d2b 10px,
+    #6b271e 10px,
+    #6b271e 20px
+  );
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.circle::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 150px;
+  height: 150px;
+  background-color: #2c3e50;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.number {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  color: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bolder;
+  font-size: 14px;
+}
+
+.betting-board {
+  margin-top: 30px;
+}
+
+.betting-board h2 {
+  margin-bottom: 10px;
+}
+
+.bet-options {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.bet-btn {
+  padding: 10px 20px;
+  background-color: #34495e;
+  border: none;
+  border-radius: 5px;
+  color: #ecf0f1;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.bet-btn:hover {
+  background-color: #2c3e50;
+}
+
+.bet-btn.active {
+  background-color: #16a085;
+}
+
+#result {
+  margin-top: 20px;
+  font-size: 1.5em;
+}
+
+/* 指針樣式 */
+.pointer {
+  position: relative;
+  top: 30px; /* 根據需要調整位置 */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-top: 25px solid #e74c3c; /* 指針顏色 */
+  z-index: 2;
+}
+
+/* 確保容器相對定位以正確定位指針 */
+
+
+/* 調整 .circle 的 z-index 以避免指針被覆蓋 */
+.circle {
+  position: relative;
+  z-index: 1;
+  /* 其他樣式保持不變 */
+}
+
+.exact-number-options {
+  margin-top: 20px;
+}
+
+.exact-number-options h3 {
+  margin-bottom: 10px;
+}
+
+.numbers-grid {
+  display: grid;
+  grid-template-columns: repeat(10, 40px);
+  gap: 10px;
+  justify-content: center;
+}
+
+.number-btn {
+  padding: 10px;
+  background-color: #34495e;
+  border: none;
+  border-radius: 5px;
+  color: #ecf0f1;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 40px;
+  text-align: center;
+}
+
+.number-btn:hover {
+  background-color: #2c3e50;
+}
+
+.number-btn.active {
+  background-color: #16a085;
+}
