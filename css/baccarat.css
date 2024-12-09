@@ -1,0 +1,188 @@
+body {
+    font-family: Arial, sans-serif;
+    color: black; 
+    text-align: center;
+    margin: auto;
+    padding: 20px;
+    width: 900px;
+
+    background-image: url("./0.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+}
+
+h3, p {
+    margin: 15px;
+}
+
+input[type="number"] {
+    padding: 8px;
+    width: 230px;
+    margin: 10px;
+    border: 2px solid #fff;
+    border-radius: 5px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input[type="number"]:focus {
+    border-color: #ffcc00;
+    box-shadow: 0 0 10px #ffcc00;
+}
+
+button {
+    font-size: 1em;
+    padding: 10px 20px;
+    margin: 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.3s;
+}
+
+button:hover {
+    transform: scale(1.05);
+    opacity: 0.9; 
+}
+
+
+#Player, #Tie, #Banker {
+    display: inline-block;
+    width: 20%;
+    height: 100px;
+    line-height: 100px;
+    margin: 30px;
+    border-radius: 10px;
+    border: 1px solid #555; 
+    background: linear-gradient(135deg, #004d00, #008000); 
+    font-size: 18px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.6); 
+    transition: transform 0.2s ease-in-out, background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    cursor: pointer; 
+}
+
+#Player:hover, #Tie:hover, #Banker:hover {
+    transform: scale(1.1); 
+    background: linear-gradient(135deg, #008000, #00cc00);
+    border: 1px solid #00cc00;
+    box-shadow: 0 6px 10px rgba(0, 255, 0, 0.5); 
+}
+
+#Player:active, #Tie:active, #Banker:active {
+    transform: scale(0.98); 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8); 
+    background: linear-gradient(135deg, #006400, #004d00); 
+}
+
+#reset {
+    margin: auto;
+    width: 200px;
+    background-color: #d9534f;
+    color: #fff;
+}
+
+#result {
+    font-size: 2em;
+    font-weight: bold;
+    color: #ffcc00;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+img {
+    margin: 5px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    width: 50px;
+}
+
+#dealer, #player, #player_closed {
+    margin: 20px;
+    padding: 10px;
+    border: 2px dashed #fff;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.1);
+    height: 110px;
+}
+
+#popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+
+#popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    color: black;
+    padding: 20px;
+    z-index: 1001;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+.close-button {
+    background-color: #d9534f; 
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.close-button:hover {
+    background-color: #c9302c;
+}
+
+#processTable {
+    border-collapse: collapse;
+    margin-left: auto; 
+    margin-right: auto;
+    color: black;
+}
+
+#processTable th, #processTable td {
+    border: 1px solid black;
+    text-align: center;
+    background-color: lightgray;
+    padding: 3px;
+}
+
+#showProcessTable {
+    position: fixed; 
+    left: 20px;
+    top: 5px;
+    background-color: lightpink;
+}
+
+.back {
+    animation-name: clickMe;
+    animation-duration: 0.5s; /* Duration of one shake */
+    animation-iteration-count: infinite; /* Repeat indefinitely */
+    animation-timing-function: ease-in-out; /* Smooth motion */
+    display: inline-block; /* Ensures proper rotation effect */
+}
+
+@keyframes clickMe {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(-10deg); }
+    50% { transform: rotate(10deg); }
+    75% { transform: rotate(-10deg); }
+    100% { transform: rotate(0deg); }
+}
