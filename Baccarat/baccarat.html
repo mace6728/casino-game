@@ -4,11 +4,13 @@
     <meta charset="utf-8">
     <title>Baccarat</title>
     <link rel="stylesheet" href="./css/baccarat.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong">
 </head>
 
 <body> 
-    <h2 id="bank">Bank: </h2>
-    <h2 id="pot">Pot: </h2>
+    <h1 style="font-family: Sofia; font-size: 3em; color:rgb(255, 132, 0) ; margin: 15px;"> Baccarat </h1>
+    <h2 id="bank" style="top: 5px;">Bank: </h2>
+    <h2 id="pot" style="top: 40px;">Pot: </h2>
     <p id="count" style="color: lightgray; font-size: large;" >How much money do you want to bet?</p>
     <input id="inputBet" type="number" placeholder="Enter a positive number">
 
@@ -16,20 +18,26 @@
     <button id= "showProcessTable" onclick="showProcessTable()"> History </button>
 
     <!-- Baccarat Table -->
-    <div id="dealer">Dealer's Cards </div>
-    <div id="dealer_sum" style="display: none;">Dealer's Sum: </div>
-    <div id="player">Your Cards </div>
-    <div id="player_sum" style="display: none;">Your Sum: </div>
-
+    <br>
+    <div id="player" style="color: orange;">Player </div>
+    <div id="banker" style="color: red;"> Banker </div>
+    <br>
 
     <!-- Player's move -->
-    <div id="Player" onclick="move('Player')"> Player </div>
-    <div id="Tie" onclick="move('Tie')"> Tie </div>
-    <div id="Banker" onclick="move('Banker')"> Banker </div>
+    <table id="PlayerMoveTable", style="width: 100%;">
+        <tr>
+            <th rowspan="2" id="Player" onclick="move('Player')" style="width: 30%;"><span style="color: orange;"> Player </span><br> 1:1 </th>
+            <th colspan="2" id="Tie" onclick="move('Tie')"> Tie <br> 8:1 </th>
+            <th rowspan="2" id="Banker" onclick="move('Banker')" style="width: 30%;"><span style="color: red;"> Banker </span><br> 0.95:1 </th>
+        </tr>
+        <tr>
+            <th id="BankerPair" onclick="move('PlayerPair')"><span style="color: blue"> Player Pair </span> <br> 11:1 </th>
+            <th id="PlayerPair" onclick="move('BankerPair')"><span style="color: blue"> Banker Pair </span> <br> 11:1 </th>
+        </tr>
+    </table>
 
     <p id="result"></p>
     <button id="reset" style="display: none;" onclick="showPopUp()"> Reset </button>
-
 
     <!-- game history would only record the last 20 steps -->
     <table id="processTable" style="display: none;">
@@ -38,7 +46,7 @@
             <th>Step</th>
             <th>Action</th>
             <th>Player Cards</th>
-            <th>Dealer Cards</th>
+            <th>Banker Cards</th>
             <th>Result</th>
             <th>Bank</th>
         </tr>
@@ -90,17 +98,27 @@
 
             // let player disclose their cards by themselves
             document.getElementById("bank").innerHTML = `Bank: ${bank}`;
-            document.getElementById("pot").innerHTML = `Pot: ${chips * 2}`;
-            document.getElementById("dealer").innerHTML = `Dealer's Cards<br>${showAllCards(dealer)}`;
-            document.getElementById("player").innerHTML = `Your Cards<br> <img onclick="disclose(0)" class="back" src="./cards/back.png"> <img onclick="disclose(1)" class="back" src="./cards/back.png">`;
+            
+            if(playerMove == 'Tie'){
+                document.getElementById("pot").innerHTML = `Pot: ${Math.round(chips * 9)}`;
+            }else if(playerMove == 'Player'){
+                document.getElementById("pot").innerHTML = `Pot: ${Math.round(chips * 2)}`;
+            }else if(playerMove == 'Banker'){
+                document.getElementById("pot").innerHTML = `Pot: ${Math.round(chips * 1.95)}`;
+            }else if(playerMove == 'PlayerPair'){
+                document.getElementById("pot").innerHTML = `Pot: ${Math.round(chips * 12)}`;
+            }else if(playerMove == 'BankerPair'){
+                document.getElementById("pot").innerHTML = `Pot: ${Math.round(chips * 12)}`;
+            }
+
+            document.getElementById("banker").innerHTML = `Banker<br>${showAllCards(dealer)}`;
+            document.getElementById("player").innerHTML = `Player<br> <img onclick="disclose(0)" class="back" src="./cards/back.png"> <img onclick="disclose(1)" class="back" src="./cards/back.png">`;
 
             // set action to local storage
             localStorage.setItem("action", playerMove);
 
             // hide the button
-            document.getElementById("Tie").style.display = "none";
-            document.getElementById("Player").style.display = "none";
-            document.getElementById("Banker").style.display = "none";
+            document.getElementById("PlayerMoveTable").style.display = "none";
 
         } else {
             alert("Please enter a valid bet amount larger than 0 and less than or equal to your bank.\n If you are bankrupt, please press reset to play again.");
@@ -113,115 +131,106 @@
 
         // show the card which the player clicks
         if(cardNumber == 0 && howManyCardsDisclosed ==1){
-            document.getElementById("player").innerHTML = `Your Cards<br> <img src="./cards/${player[0]}.png"> <img onclick="disclose(1)" class="back" src="./cards/back.png">`;
+            document.getElementById("player").innerHTML = `Player<br> <img src="./cards/${player[0]}.png"> <img onclick="disclose(1)" class="back" src="./cards/back.png">`;
         }else if(cardNumber == 1 && howManyCardsDisclosed ==1){
-            document.getElementById("player").innerHTML = `Your Cards<br> <img onclick="disclose(0)" class="back" src="./cards/back.png"><img src="./cards/${player[1]}.png">`;
+            document.getElementById("player").innerHTML = `Player<br> <img onclick="disclose(0)" class="back" src="./cards/back.png"><img src="./cards/${player[1]}.png">`;
         }
 
         if(howManyCardsDisclosed == 2){
 
             let playerMove = localStorage.getItem("action");
 
-            // check if the dealer need to add a card or not
-            if(sum(player)!=9 && sum(player)!=8 && sum(dealer)!=8 && sum(dealer)!=9){
-                if(sum(player)<=5){
-                    // player add a card 
-                    player.push(generateCard()); 
-                    recordProcess("Player add a card", showAllCards(player), showAllCards(dealer), "Game...", bank);
+            if(playerMove != "PlayerPair" && playerMove != "BankerPair"){
+                // check if the dealer need to add a card or not
+                if(sum(player)!=9 && sum(player)!=8 && sum(dealer)!=8 && sum(dealer)!=9){
+                    if(sum(player)<=5){
+                        // player add a card 
+                        player.push(generateCard()); 
+                        recordProcess("Player add a card", showAllCards(player), showAllCards(dealer), "Game...", bank);
 
+                        // calculate the third card value
+                        let thirdCardValue = countCardValue(player[2], 0);
 
-                    // calculate the third card value
-                    let thirdCardValue = Math.floor((player[2] - 1) / 4) + 1;
-                    if(thirdCardValue >= 10){
-                        thirdCardValue = 0;
-                    }
-
-                    // dealer add a card
-                    if(sum(dealer) <= 2){
-                        dealer.push(generateCard());
-                    }else if(sum(dealer) == 3){
-                        if(thirdCardValue != 8){
+                        // dealer add a card
+                        if(sum(dealer) <= 2){
+                            dealer.push(generateCard());
+                        }else if(sum(dealer) == 3){
+                            if(thirdCardValue != 8){
+                                dealer.push(generateCard());
+                            }
+                        }else if(sum(dealer) == 4){
+                            if(thirdCardValue != 0 && thirdCardValue != 1 && thirdCardValue != 8 && thirdCardValue != 9){
+                                dealer.push(generateCard());
+                            }
+                        }else if(sum(dealer) == 5){
+                            if(thirdCardValue == 4 || thirdCardValue == 5 || thirdCardValue == 6 || thirdCardValue == 7){
+                                dealer.push(generateCard());
+                            }
+                        }else if(sum(dealer) == 6){
+                            if(thirdCardValue == 6 || thirdCardValue == 7){
+                                dealer.push(generateCard());
+                            }
+                        }
+                    }else{
+                        if(sum(dealer) <= 5){
                             dealer.push(generateCard());
                         }
-                    }else if(sum(dealer) == 4){
-                        if(thirdCardValue != 0 && thirdCardValue != 1 && thirdCardValue != 8 && thirdCardValue != 9){
-                            dealer.push(generateCard());
-                        }
-                    }else if(sum(dealer) == 5){
-                        if(thirdCardValue == 4 || thirdCardValue == 5 || thirdCardValue == 6 || thirdCardValue == 7){
-                            dealer.push(generateCard());
-                        }
-                    }else if(sum(dealer) == 6){
-                        if(thirdCardValue == 6 || thirdCardValue == 7){
-                            dealer.push(generateCard());
-                        }
-                    }
-                }else{
-                    if(sum(dealer) <= 5){
-                        dealer.push(generateCard());
                     }
                 }
             }
 
             document.getElementById("pot").innerHTML = `Pot:`;
-            document.getElementById("dealer").innerHTML = `Dealer's Cards<br>${showAllCards(dealer)}`;
-            document.getElementById("dealer_sum").style.display = "block";
-            document.getElementById("dealer_sum").innerHTML = `Dealer's Sum: ${sum(dealer)}`;
-            document.getElementById("player").innerHTML = `Your Cards<br>${showAllCards(player)}`;
-            document.getElementById("player_sum").style.display = "block";
-            document.getElementById("player_sum").innerHTML = `Your Sum: ${sum(player)}`;
+            document.getElementById("banker").innerHTML = `Banker<br>${showAllCards(dealer)} <br><span style="font-size: 0.8em;"> Banker's sum: ${sum(dealer)}</span>`;
+            document.getElementById("player").innerHTML = `Player<br>${showAllCards(player)} <br><span style="font-size: 0.8em;"> Player's sum: ${sum(player)}</span>`;
 
             if(dealer[2] != null){
-                recordProcess("Dealer add a card", showAllCards(player), showAllCards(dealer), "Game...", bank);
+                recordProcess("Banker add a card", showAllCards(player), showAllCards(dealer), "Game...", bank);
             }
 
             let playerWin = false; 
             if(playerMove == 'Tie'){
                 if(sum(player) == sum(dealer)){
-                    document.getElementById("result").innerHTML = "You win";
-                    bank += chips * 8; 
+                    bank += Math.round(chips * 9); 
                     playerWin = true; 
-                }else{
-                    document.getElementById("result").innerHTML = "You lose";
                 }
             }else if(playerMove == 'Player'){
                 if(sum(player) > sum(dealer)){
-                    document.getElementById("result").innerHTML = "You win";
-                    bank += chips * 2; 
+                    bank += Math.round(chips * 2); 
                     playerWin = true; 
-                }else{
-                    document.getElementById("result").innerHTML = "You lose"
                 }
             }else if(playerMove == 'Banker'){
                 if(sum(player) < sum(dealer)){
-                    document.getElementById("result").innerHTML = "You win";
-                    bank += round(chips * 1.95); 
+                    bank += Math.round(chips * 1.95); 
                     playerWin = true; 
-                }else{
-                    document.getElementById("result").innerHTML = "You lose";
+                }
+            }else if(playerMove == 'PlayerPair'){
+                if(countCardValue(player[0], 1) == countCardValue(player[1], 1)){
+                    bank += Math.round(chips * 12); 
+                    playerWin = true; 
+                }
+            }else if(playerMove == 'BankerPair'){
+                if(countCardValue(dealer[0], 1) == countCardValue(dealer[1], 1)){
+                    bank += Math.round(chips * 12); 
+                    playerWin = true; 
                 }
             }
 
             if(playerWin){
+                document.getElementById("result").innerHTML = "You win";
                 recordProcess(playerMove, showAllCards(player), showAllCards(dealer), "Win", bank);
             }else{
+                document.getElementById("result").innerHTML = "You lose";
                 recordProcess(playerMove, showAllCards(player), showAllCards(dealer), "Lose", bank);
             }
 
             localStorage.setItem("bank", bank);
             document.getElementById("bank").innerHTML = `Bank: ${bank}`;
 
-            // show the button
-            document.getElementById("Tie").style.display = "inline-block";
-            document.getElementById("Player").style.display = "inline-block";
-            document.getElementById("Banker").style.display = "inline-block";
+            document.getElementById("PlayerMoveTable").style.display = "table";
 
             if(bank<=0){
                 document.getElementById("reset").style.display = "block";
             }
-
-            // using ajax to send value to the server 
-
         }
     }
 
@@ -257,10 +266,8 @@
         player = [];
 
         document.getElementById("pot").innerHTML = "Pot: ";
-        document.getElementById("dealer").innerHTML = "Dealer's Cards";
-        document.getElementById("dealer_sum").style.display = "none";
-        document.getElementById("player").innerHTML = "Your Cards";
-        document.getElementById("player_sum").style.display = "none";
+        document.getElementById("banker").innerHTML = "Banker";
+        document.getElementById("player").innerHTML = "Player";
         document.getElementById("result").innerHTML = "";
 
         localStorage.setItem("action", "");
@@ -298,6 +305,16 @@
         }else{
             document.getElementById("processTable").style.display = "none";
         }
+    }
+
+    function countCardValue(card, pair){
+        let value =  Math.floor((card - 1) / 4) + 1;
+        if(!pair){
+            if(value >= 10){
+                value = 0;
+            }
+        }
+        return value; 
     }
 
 </script>

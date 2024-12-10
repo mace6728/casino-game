@@ -17,6 +17,14 @@ h3, p {
     margin: 15px;
 }
 
+#bank, #pot{
+    text-align: left;
+    position: fixed;
+    right: 10px;
+    width: 160px;
+    color: white;
+}
+
 input[type="number"] {
     padding: 8px;
     width: 230px;
@@ -46,38 +54,6 @@ button:hover {
     opacity: 0.9; 
 }
 
-
-#Player, #Tie, #Banker {
-    display: inline-block;
-    width: 20%;
-    height: 100px;
-    line-height: 100px;
-    margin: 30px;
-    border-radius: 10px;
-    border: 1px solid #555; 
-    background: linear-gradient(135deg, #004d00, #008000); 
-    font-size: 18px;
-    color: white;
-    font-weight: bold;
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.6); 
-    transition: transform 0.2s ease-in-out, background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    cursor: pointer; 
-}
-
-#Player:hover, #Tie:hover, #Banker:hover {
-    transform: scale(1.1); 
-    background: linear-gradient(135deg, #008000, #00cc00);
-    border: 1px solid #00cc00;
-    box-shadow: 0 6px 10px rgba(0, 255, 0, 0.5); 
-}
-
-#Player:active, #Tie:active, #Banker:active {
-    transform: scale(0.98); 
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8); 
-    background: linear-gradient(135deg, #006400, #004d00); 
-}
-
 #reset {
     margin: auto;
     width: 200px;
@@ -94,19 +70,25 @@ button:hover {
 }
 
 img {
+    display: inline-block;
     margin: 5px;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     width: 50px;
 }
 
-#dealer, #player, #player_closed {
-    margin: 20px;
-    padding: 10px;
+#banker, #player {
+    width: 45%;
+    display: inline-block;
+    font-family: Trirong; 
+    font-weight: bolder; 
+    font-size: 1.5em;
+
+    margin: 10px;
     border: 2px dashed #fff;
     border-radius: 5px;
     background-color: rgba(255, 255, 255, 0.1);
-    height: 110px;
+    height: 145px;
 }
 
 #popup-overlay {
@@ -119,7 +101,6 @@ img {
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 1000;
 }
-
 
 #popup {
     display: none;
@@ -173,16 +154,52 @@ img {
 
 .back {
     animation-name: clickMe;
-    animation-duration: 0.5s; /* Duration of one shake */
-    animation-iteration-count: infinite; /* Repeat indefinitely */
-    animation-timing-function: ease-in-out; /* Smooth motion */
-    display: inline-block; /* Ensures proper rotation effect */
+    animation-duration: 0.8s;
+    animation-iteration-count: infinite; 
+    animation-timing-function: ease-in-out; 
+    display: inline-block; 
 }
 
 @keyframes clickMe {
     0% { transform: rotate(0deg); }
-    25% { transform: rotate(-10deg); }
-    50% { transform: rotate(10deg); }
-    75% { transform: rotate(-10deg); }
-    100% { transform: rotate(0deg); }
+    20% { transform: rotate(-10deg); }
+    40% { transform: rotate(10deg); }
+    60% { transform: rotate(-10deg); }
+    80% { transform: rotate(0deg); }
+}
+
+#PlayerMoveTable, #PlayerMoveTable th, #PlayerMoveTable td {
+    margin: 20px;
+    height: 160px;
+    font-family: Trirong; 
+    font-size: 1.2em;
+    font-weight: bold;
+    border: 2px solid gold;
+    border-collapse: collapse;
+    text-align: center;
+    color: white;
+    background: linear-gradient(135deg, #004d00, #008000); 
+    transition: transform 0.2s ease-in-out, background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    cursor: url('chips64.png'), pointer; 
+    animation: glow 5s infinite;
+}
+
+@keyframes glow {
+    0%, 100% {
+      box-shadow: none;
+    }
+    50% {
+      box-shadow: 0 0 20px #ff0;
+    }
+  }
+
+#PlayerMoveTable th:hover, #PlayerMoveTable td:hover {
+    transform: scale(1.02); 
+    border-radius: 30px;
+    background: linear-gradient(135deg, #008000, #00cc00);
+}
+
+#PlayerMoveTable:active, #PlayerMoveTable th:active, #PlayerMoveTable td:active {
+    transform: scale(0.98); 
+    background: linear-gradient(135deg, #006400, #004d00); 
 }
