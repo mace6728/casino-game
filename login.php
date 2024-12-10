@@ -25,7 +25,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if (password_verify($password, $hashed_password)) {
             // Set session variables
-            $_SESSION['user_id'] = $id;
             $_SESSION['username'] = $username;
             $_SESSION['chips'] = $chips;
 

@@ -34,9 +34,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   if ($stmt->execute()) {
     echo "<script>
-      localStorage.removeItem('logoutButtonDisabled');
-      alert('Login successful!');
-      window.location.href = 'index.html';
+      alert('Register successful!');
+      window.location.href = 'index.php';
     </script>";
   } else {
     echo "<script>alert('Registration failed. Please try again.'); window.location.href = 'register.html';</script>";
