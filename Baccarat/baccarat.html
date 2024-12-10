@@ -61,23 +61,29 @@
 
 </body>
 
-<script> 
+<script defer> 
     let chips, bank;
     let dealer = [], player = []; 
     let stepCounter = 0, howManyCardsDisclosed = 0;
 
+    // Retrieve username from local storage and bank money from database
     window.onload = function() {
-        // Retrieve bank money info from local storage
         if (typeof(Storage) !== "undefined") {
-            bank = localStorage.getItem("bank") ? parseInt(localStorage.getItem("bank")) : 1000;
-            document.getElementById("bank").innerHTML = `Bank: ${bank}`;
-            if(bank <= 0){
-                document.getElementById("reset").style.display = "inline-block";
+            if (localStorage.getItem("username") === null) {
+                // login page url 
+                window.location.href = "";
+            }else{
+                let username = localStorage.getItem("username");
+                getBankMoneyFromServer(username);
+                document.getElementById("bank").innerHTML = `Bank: ${bank}`;
+                if(bank <= 0){
+                    document.getElementById("reset").style.display = "inline-block";
+                }
             }
-        } else {
+        }else{
             document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
         }
-    }
+    };
 
     function move(playerMove) {
         resetGame();
@@ -231,6 +237,9 @@
             if(bank<=0){
                 document.getElementById("reset").style.display = "block";
             }
+
+            // Game Ended and update the bank money to server
+            updateBankMoneyToServer(bank); 
         }
     }
 
@@ -315,6 +324,23 @@
             }
         }
         return value; 
+    }
+
+    function getBankMoneyFromServer(username) {
+        const xhttp = new XMLHttpRequest();
+        xhttp.onload = function () {
+            bank = parseInt(this.responseText) || 1000; 
+        }
+        xhttp.open("GET", "baccarat.php?username="+encodeURIComponent(username), true);
+        xhttp.send();
+    }
+
+    function updateBankMoneyToServer(bank) {
+        let username = localStorage.getItem("username");
+        const xhttp = new XMLHttpRequest();
+        xhttp.open("POST", "baccarat.php", true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send(`username=${encodeURIComponent(username)}&bank=${encodeURIComponent(bank)}`);
     }
 
 </script>
