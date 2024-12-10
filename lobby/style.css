@@ -1,0 +1,30 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background: radial-gradient(circle, #37a837, #146214 40%, #073b07 80%);  
+}
+
+.image-container {
+  position: absolute;
+  width: 25%;
+}
+
+button {
+  border: none; 
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.hover-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 0 0 transparent); /*初始狀態：無陰影 */
+  transition: filter 0.3s ease;
+}
+
+.hover-image:hover {
+  filter: drop-shadow(0 0 20px yellow); /*輪廓加上陰影 */
+}
