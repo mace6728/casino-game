@@ -4,70 +4,101 @@ session_start();
 include 'connect.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (!isset($_SESSION['user_id'])) {
-        echo json_encode(['status' => 'error', 'message' => 'User not logged in']);
-        exit;
-    }
-
-    $userId = $_SESSION['user_id'];
-    $betType = $_POST['bet_type'];
-    $betAmount = intval($_POST['bet_amount']);
+    // Retrieve and sanitize POST data
+    $username = $_SESSION['username'] ?? null;
+    $betType = $_POST['bet_type'] ?? null;
+    $betAmount = isset($_POST['bet_amount']) ? intval($_POST['bet_amount']) : 0;
     $betNumber = $_POST['bet_number'] ?? null;
+    $winningNumber = $_POST['winning_number'] ?? null;
 
-    // 檢查用戶是否有足夠的籌碼
-    $stmt = $conn->prepare("SELECT chips FROM users WHERE id = ?");
-    $stmt->bind_param("i", $userId);
-    $stmt->execute();
-    $stmt->bind_result($currentChips);
-    $stmt->fetch();
-    $stmt->close();
-
-    if ($betAmount > $currentChips) {
-        echo json_encode(['status' => 'error', 'message' => 'Insufficient chips']);
+    // Validate required fields
+    if (!$username || !$betType || !$betAmount || !$winningNumber) {
+        echo json_encode(['error' => 'Missing required fields.']);
         exit;
     }
 
-    // 扣除籌碼
-    $stmt = $conn->prepare("UPDATE users SET chips = chips - ? WHERE id = ?");
-    $stmt->bind_param("ii", $betAmount, $userId);
-    $stmt->execute();
-    $stmt->close();
+    // Deduct chips
+    $stmt = $conn->prepare("UPDATE users SET chips = chips - ? WHERE username = ?");
+    if (!$stmt) {
+        error_log("Prepare failed (Deduct Chips): " . $conn->error);
+        echo json_encode(['error' => 'Database error.']);
+        exit;
+    }
 
-    // 旋轉輪盤
-    $winningNumber = spinWheel();
+    $stmt->bind_param("is", $betAmount, $username);
+    if (!$stmt->execute()) {
+        error_log("Execute failed (Deduct Chips): " . $stmt->error);
+        echo json_encode(['error' => 'Database execution error.']);
+        $stmt->close();
+        exit;
+    }
+    $stmt->close();
+    $_SESSION['chips'] -= $betAmount;
+
+    // Calculate payout
     $payoutMultiplier = calculatePayout($betType, $betNumber, $winningNumber);
     $payout = $betAmount * $payoutMultiplier;
 
-    // 更新用戶籌碼
-    if ($payout > 0) {
-        $stmt = $conn->prepare("UPDATE users SET chips = chips + ? WHERE id = ?");
-        $stmt->bind_param("ii", $payout, $userId);
-        $stmt->execute();
-        $stmt->close();
+    // Log payout details
+    error_log("Payout Multiplier: " . $payoutMultiplier);
+    error_log("Bet Type: " . $betType);
+    error_log("Bet Number: " . $betNumber);
+    error_log("Winning Number: " . $winningNumber);
+    error_log("Bet Amount: " . $betAmount);
+    error_log("Payout: " . $payout);
 
-        // 更新會話中的籌碼
-        $_SESSION['chips'] += $payout;
+    // Update chips if payout > 0
+    if ($payout > 0) {
+        $stmt = $conn->prepare("UPDATE users SET chips = chips + ? WHERE username = ?");
+        if (!$stmt) {
+            error_log("Prepare failed (Add Chips): " . $conn->error);
+            echo json_encode(['error' => 'Database error.']);
+            exit;
+        }
+        $stmt->bind_param("is", $payout, $username);
+        if (!$stmt->execute()) {
+            error_log("Execute failed (Add Chips): " . $stmt->error);
+            echo json_encode(['error' => 'Database execution error.']);
+            $stmt->close();
+            exit;
+        }
+        $stmt->close();
     }
 
-    // 插入下注記錄
-    $stmt = $conn->prepare("INSERT INTO roulette_bets (user_id, bet_type, bet_number, bet_amount, winning_number, payout) VALUES (?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("issisi", $userId, $betType, $betNumber, $betAmount, $winningNumber, $payout);
-    $stmt->execute();
+    // Update session chips
+    error_log("Chips before: " . $_SESSION['chips']);
+    $_SESSION['chips'] += $payout;
+    error_log("Chips after: " . $_SESSION['chips']);
+
+    // Insert bet record
+    $stmt = $conn->prepare("INSERT INTO roulette_bets (username, bet_type, bet_number, bet_amount, winning_number, payout) VALUES (?, ?, ?, ?, ?, ?)");
+    if (!$stmt) {
+        error_log("Prepare failed (Insert Bet): " . $conn->error);
+        echo json_encode(['error' => 'Database error.']);
+        exit;
+    }
+
+    $stmt->bind_param("sssisi", $username, $betType, $betNumber, $betAmount, $winningNumber, $payout);
+    if (!$stmt->execute()) {
+        error_log("Execute failed (Insert Bet): " . $stmt->error);
+        echo json_encode(['error' => 'Database execution error.']);
+        $stmt->close();
+        exit;
+    }
     $stmt->close();
 
-    echo json_encode([
-        'status' => 'success',
-        'winning_number' => $winningNumber,
-        'payout' => $payout
-    ]);
+    // Prepare response
+    $response = array(
+        'chips' => isset($_SESSION['chips']) ? $_SESSION['chips'] : 1000
+    );
+    echo json_encode($response);
 }
 
-function spinWheel() {
-    $numbers = ['0', '28', '9', '26', '30', '11', '7', '20', '32', '17', '5', '22', '34', '15', '3', '24', '36', '13', '1', '00', '27', '10', '25', '29', '12', '8', '19', '31', '18', '6', '21', '33', '16', '4', '23', '35', '14', '2'];
-    return $numbers[array_rand($numbers)];
-}
 
-function calculatePayout($betType, $betNumber, $winningNumber) {
+
+
+function calculatePayout($betType, $betNumber, $winningNumber)
+{
     // 定義贏的屬性
     $winningColor = getColor($winningNumber);
     $winningEvenOdd = getEvenOdd($winningNumber);
@@ -90,19 +121,22 @@ function calculatePayout($betType, $betNumber, $winningNumber) {
     }
 }
 
-function getColor($number) {
-    $red = ['1','3','5','7','9','12','14','16','18','19','21','23','25','27','30','32','34','36'];
+function getColor($number)
+{
+    $red = ['1', '3', '5', '7', '9', '12', '14', '16', '18', '19', '21', '23', '25', '27', '30', '32', '34', '36'];
     if ($number == '0' || $number == '00') return 'green';
     return in_array($number, $red) ? 'red' : 'black';
 }
 
-function getEvenOdd($number) {
+function getEvenOdd($number)
+{
     if ($number == '0' || $number == '00') return 'none';
     $num = intval($number);
     return ($num % 2 == 0) ? 'even' : 'odd';
 }
 
-function getBigSmall($number) {
+function getBigSmall($number)
+{
     if ($number == '0' || $number == '00') return 'none';
     $num = intval($number);
     return ($num >= 19 && $num <= 36) ? 'big' : 'small';

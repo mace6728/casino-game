@@ -1,9 +1,9 @@
 <?php
 // connect.php
 $servername = "localhost";
-$username = "casino";
-$password = "roullete_bets";
-$dbname = "users";
+$username = "root";
+$password = "";
+$dbname = "casino";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
