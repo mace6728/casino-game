@@ -1,4 +1,29 @@
 // script.js
+document.addEventListener("DOMContentLoaded", function () {
+  fetch("get_username.php")
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.username) {
+        document.getElementById(
+          "username_display"
+        ).innerText = `Welcome ${data.username}`;
+      }
+      if (data.chips) {
+        document.getElementById(
+          "user_chips"
+        ).innerText = `Chips: ${data.chips}`;
+        // Set the max attribute for bet_amount
+        const betAmountInput = document.getElementById("bet_amount");
+        if (betAmountInput) {
+          betAmountInput.max = data.chips;
+        }
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching user data:", error);
+    });
+});
+
 const circle = document.querySelector(".circle");
 const betForm = document.getElementById("betForm");
 const betTypeInput = document.getElementById("bet_type");
@@ -118,17 +143,17 @@ betForm.addEventListener("submit", function (e) {
   const betNumber = document.getElementById("bet_number").value;
 
   if (!betType) {
-    alert("請選擇一個下注選項!");
+    alert("Please select a bet option!");
     return;
   }
 
   if (betType === "exact" && !selectedExactNumber) {
-    alert("請選擇一個具體數字!");
+    alert("Please select an exact number!");
     return;
   }
 
   if (userId === null) {
-    alert("請先登錄。");
+    alert("Please log in first.");
     return;
   }
 
@@ -141,7 +166,7 @@ betForm.addEventListener("submit", function (e) {
   // 在旋轉結束後確定贏家
   setTimeout(() => {
     circle.classList.remove("spinning");
-    const actualRotation = (rotation-1) % 360;
+    const actualRotation = (rotation - 5) % 360;
     const index = Math.floor((actualRotation / 360) * rouletteNumbers.length);
     const winningNumber =
       rouletteNumbers[
@@ -193,30 +218,41 @@ betForm.addEventListener("submit", function (e) {
       } else {
         resultDiv.textContent = `You lost. The number was ${winningNumber}.`;
       }
-    } else {
-      resultDiv.textContent = `未知的下注類型。`;
     }
 
-    fetch('roulette.php', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: `bet_type=${encodeURIComponent(betType)}&bet_amount=${encodeURIComponent(betAmount)}&bet_number=${encodeURIComponent(betNumber)}`
+    fetch("roulette.php", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: `bet_type=${encodeURIComponent(
+        betType
+      )}&bet_amount=${encodeURIComponent(
+        betAmount
+      )}&bet_number=${encodeURIComponent(
+        betNumber
+      )}&winning_number=${encodeURIComponent(winningNumber)}`,
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
       })
-      .then(response => response.json())
-      .then(data => {
-        if(data.status === 'success'){
-          resultDiv.textContent = `Winning Number: ${data.winning_number}. Payout: ${data.payout}`;
-          // 更新頁面上的籌碼顯示
-          window.location.reload(); // 重新加載頁面以更新籌碼
-        } else {
-          resultDiv.textContent = `Error: ${data.message}`;
+      .then((data) => {
+        if (data.chips) {
+          document.getElementById(
+            "user_chips"
+          ).innerText = `Chips: ${data.chips}`;
+          // Set the max attribute for bet_amount
+          const betAmountInput = document.getElementById("bet_amount");
+          if (betAmountInput) {
+            betAmountInput.max = data.chips;
+          }
         }
       })
-      .catch(error => {
-        console.error('Error:', error);
-        resultDiv.textContent = 'An error occurred.';
+      .catch((error) => {
+        console.error("Error processing the bet:", error);
       });
     // 這裡可以添加與後端交互的代碼，例如通過 AJAX 發送下注結果
   }, 4000);

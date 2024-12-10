@@ -1,6 +1,6 @@
-let cube1 = document.getElementById('cube1');
-let cube2 = document.getElementById('cube2');
-let cube3 = document.getElementById('cube3');
+let cube1 = document.getElementById('dice1');
+let cube2 = document.getElementById('dice2');
+let cube3 = document.getElementById('dice3');
 let currentClass1 = '';
 let currentClass2 = '';
 let currentClass3 = '';
@@ -155,6 +155,7 @@ const bets = {
         const { dice, playerChips } = data;
         let original = parseInt(document.getElementById('player-chips').innerText);
         DiceRolling(dice[0], dice[1], dice[2]);
+        console.log(dice);
         animateChips(original, playerChips);
         highlightWinningZones(data.winningZones);
     })

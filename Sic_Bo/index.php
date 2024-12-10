@@ -109,34 +109,115 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
       <div>Bet: <span id="current-bet">0</span></div>    
   </div>
   <div class="dice-container">
-    <div class="scene">
-      <div class="cube" id="cube1">
-        <div class="cube__face cube__face--1"><img src="file2.png" style="width: 100%; height: auto;"></div>
-        <div class="cube__face cube__face--2"><img src="file3.png" style="width: 100%; height: auto;"></div>
-        <div class="cube__face cube__face--3"><img src="file4.png" style="width: 100%; height: auto;"></div>
-        <div class="cube__face cube__face--4"><img src="file5.png" style="width: 100%; height: auto;"></div>
-        <div class="cube__face cube__face--5"><img src="file6.png" style="width: 100%; height: auto;"></div>
-        <div class="cube__face cube__face--6"><img src="file7.png" style="width: 100%; height: auto;"></div>
+    <div class="container">
+      <div id='dice1' class="dice dice-one">
+        <div id="dice-one-side-one" class='side one'>
+          <div class="dot one-1"></div>
+        </div>
+        <div id="dice-one-side-two" class='side two'>
+          <div class="dot two-1"></div>
+          <div class="dot two-2"></div>
+        </div>
+        <div id="dice-one-side-three" class='side three'>
+          <div class="dot three-1"></div>
+          <div class="dot three-2"></div>
+          <div class="dot three-3"></div>
+        </div>
+        <div id="dice-one-side-four" class='side four'>
+          <div class="dot four-1"></div>
+          <div class="dot four-2"></div>
+          <div class="dot four-3"></div>
+          <div class="dot four-4"></div>
+        </div>
+        <div id="dice-one-side-five" class='side five'>
+          <div class="dot five-1"></div>
+          <div class="dot five-2"></div>
+          <div class="dot five-3"></div>
+          <div class="dot five-4"></div>
+          <div class="dot five-5"></div>
+        </div>
+        <div id="dice-one-side-six" class='side six'>
+          <div class="dot six-1"></div>
+          <div class="dot six-2"></div>
+          <div class="dot six-3"></div>
+          <div class="dot six-4"></div>
+          <div class="dot six-5"></div>
+          <div class="dot six-6"></div>
+        </div>
       </div>
     </div>
-    <div class="scene">
-      <div class="cube" id="cube2">
-        <div class="cube__face cube__face--1"><img src="file2.png" style="width: 100%; height: auto;"></div>
-        <div class="cube__face cube__face--2"><img src="file3.png" style="width: 100%; height: auto;"></div>
-        <div class="cube__face cube__face--3"><img src="file4.png" style="width: 100%; height: auto;"></div>
-        <div class="cube__face cube__face--4"><img src="file5.png" style="width: 100%; height: auto;"></div>
-        <div class="cube__face cube__face--5"><img src="file6.png" style="width: 100%; height: auto;"></div>
-        <div class="cube__face cube__face--6"><img src="file7.png" style="width: 100%; height: auto;"></div>
-      </div>
+    <div class="container">
+      <div id='dice2' class="dice dice-two">
+        <div id="dice-two-side-one" class='side one'>
+          <div class="dot one-1"></div>
+        </div>
+        <div id="dice-two-side-two" class='side two'>
+          <div class="dot two-1"></div>
+          <div class="dot two-2"></div>
+        </div>
+        <div id="dice-two-side-three" class='side three'>
+          <div class="dot three-1"></div>
+          <div class="dot three-2"></div>
+          <div class="dot three-3"></div>
+        </div>
+        <div id="dice-two-side-four" class='side four'>
+          <div class="dot four-1"></div>
+          <div class="dot four-2"></div>
+          <div class="dot four-3"></div>
+          <div class="dot four-4"></div>
+        </div>
+        <div id="dice-two-side-five" class='side five'>
+          <div class="dot five-1"></div>
+          <div class="dot five-2"></div>
+          <div class="dot five-3"></div>
+          <div class="dot five-4"></div>
+          <div class="dot five-5"></div>
+        </div>
+        <div id="dice-two-side-six" class='side six'>
+          <div class="dot six-1"></div>
+          <div class="dot six-2"></div>
+          <div class="dot six-3"></div>
+          <div class="dot six-4"></div>
+          <div class="dot six-5"></div>
+          <div class="dot six-6"></div>
+        </div>
+      </div> 
     </div>
-    <div class="scene">
-      <div class="cube" id="cube3">
-        <div class="cube__face cube__face--1"><img src="file2.png" style="width: 100%; height: auto;"></div>
-        <div class="cube__face cube__face--2"><img src="file3.png" style="width: 100%; height: auto;"></div>
-        <div class="cube__face cube__face--3"><img src="file4.png" style="width: 100%; height: auto;"></div>
-        <div class="cube__face cube__face--4"><img src="file5.png" style="width: 100%; height: auto;"></div>
-        <div class="cube__face cube__face--5"><img src="file6.png" style="width: 100%; height: auto;"></div>
-        <div class="cube__face cube__face--6"><img src="file7.png" style="width: 100%; height: auto;"></div>
+    <div class="container">
+      <div id='dice3' class="dice dice-three">
+        <div id="dice-three-side-one" class='side one'>
+          <div class="dot one-1"></div>
+        </div>
+        <div id="dice-three-side-two" class='side two'>
+          <div class="dot two-1"></div>
+          <div class="dot two-2"></div>
+        </div>
+        <div id="dice-three-side-three" class='side three'>
+          <div class="dot three-1"></div>
+          <div class="dot three-2"></div>
+          <div class="dot three-3"></div>
+        </div>
+        <div id="dice-three-side-four" class='side four'>
+          <div class="dot four-1"></div>
+          <div class="dot four-2"></div>
+          <div class="dot four-3"></div>
+          <div class="dot four-4"></div>
+        </div>
+        <div id="dice-three-side-five" class='side five'>
+          <div class="dot five-1"></div>
+          <div class="dot five-2"></div>
+          <div class="dot five-3"></div>
+          <div class="dot five-4"></div>
+          <div class="dot five-5"></div>
+        </div>
+        <div id="dice-three-side-six" class='side six'>
+          <div class="dot six-1"></div>
+          <div class="dot six-2"></div>
+          <div class="dot six-3"></div>
+          <div class="dot six-4"></div>
+          <div class="dot six-5"></div>
+          <div class="dot six-6"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -165,9 +246,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     <div class="bet-area double5" onclick="openModal('Double_5')" id="Double_5"><img src="chips.png" alt="Chip" class="chip" id="chip-Double_5" style="display: none;"><div class="bet" id="bet-Double_5" style="display: none;"></div></div>
     <div class="bet-area double6" onclick="openModal('Double_6')" id="Double_6"><img src="chips.png" alt="Chip" class="chip" id="chip-Double_6" style="display: none;"><div class="bet" id="bet-Double_6" style="display: none;"></div></div>
 
-    <div class="bet-area four" onclick="openModal('Total4')" id="Total4"><img src="chips.png" alt="Chip" class="chip" id="chip-Total4" style="display: none;"><div class="bet" id="bet-Total4" style="display: none;"></div></div>
-    <div class="bet-area five" onclick="openModal('Total5')" id="Total5"><img src="chips.png" alt="Chip" class="chip" id="chip-Total5" style="display: none;"><div class="bet" id="bet-Total5" style="display: none;"></div></div>
-    <div class="bet-area six" onclick="openModal('Total6')" id="Total6"><img src="chips.png" alt="Chip" class="chip" id="chip-Total6" style="display: none;"><div class="bet" id="bet-Total6" style="display: none;"></div></div>
+    <div class="bet-area total4" onclick="openModal('Total4')" id="Total4"><img src="chips.png" alt="Chip" class="chip" id="chip-Total4" style="display: none;"><div class="bet" id="bet-Total4" style="display: none;"></div></div>
+    <div class="bet-area total5" onclick="openModal('Total5')" id="Total5"><img src="chips.png" alt="Chip" class="chip" id="chip-Total5" style="display: none;"><div class="bet" id="bet-Total5" style="display: none;"></div></div>
+    <div class="bet-area total6" onclick="openModal('Total6')" id="Total6"><img src="chips.png" alt="Chip" class="chip" id="chip-Total6" style="display: none;"><div class="bet" id="bet-Total6" style="display: none;"></div></div>
     <div class="bet-area seven" onclick="openModal('Total7')" id="Total7"><img src="chips.png" alt="Chip" class="chip" id="chip-Total7" style="display: none;"><div class="bet" id="bet-Total7" style="display: none;"></div></div>
     <div class="bet-area eight" onclick="openModal('Total8')" id="Total8"><img src="chips.png" alt="Chip" class="chip" id="chip-Total8" style="display: none;"><div class="bet" id="bet-Total8" style="display: none;"></div></div>
     <div class="bet-area nine" onclick="openModal('Total9')" id="Total9"><img src="chips.png" alt="Chip" class="chip" id="chip-Total9" style="display: none;"><div class="bet" id="bet-Total9" style="display: none;"></div></div>

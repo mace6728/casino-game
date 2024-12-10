@@ -1,33 +1,33 @@
-<!-- register.html -->
+<!-- login.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register - Roulette Game</title>
+    <title>Login - Roulette Game</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <!-- 導航欄 -->
     <nav class="navbar">
         <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="login.html">Login</a></li>
+            <li><a href="index.php">Home</a></li>
+            <li><a href="register.html">Register</a></li>
         </ul>
     </nav>
 
     <div class="auth-container">
-        <h2>Register</h2>
-        <form action="register.php" method="POST">
+        <h2>Login</h2>
+        <form action="login.php" method="POST">
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required>
             
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" required>
             
-            <button type="submit">Register</button>
+            <button type="submit">login</button>
         </form>
-        <p>Already have an account? <a href="login.html">Login</a></p>
+        <p>Dont have an account? <a href="register.html">Register</a></p>
     </div>
 </body>
 </html>
