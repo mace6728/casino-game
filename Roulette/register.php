@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
   // 插入新用戶
-  $stmt = $conn->prepare("INSERT INTO users (username, password) VALUES (?, ?)");
+  $stmt = $conn->prepare("INSERT INTO users (username, password, chips) VALUES (?, ?, 1000)");
   $stmt->bind_param("ss", $username, $hashed_password);
 
   if ($stmt->execute()) {
