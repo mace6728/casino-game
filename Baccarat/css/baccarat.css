@@ -203,3 +203,18 @@ img {
     transform: scale(0.98); 
     background: linear-gradient(135deg, #006400, #004d00); 
 }
+
+
+.backbutton {
+    position: absolute; 
+    left: 2%; 
+    bottom: 2%; 
+    width: 5%;
+}
+.backbutton:hover {
+    transform: scale(1.1);  
+}
+.backbutton:active {
+    transform: scale(0.95);
+    opacity: 0.8;
+}

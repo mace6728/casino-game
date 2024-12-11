@@ -59,22 +59,31 @@
         <button class="close-button" onclick="closePopup()">Ok</button>
     </div>
 
+    <a href="../lobby/index.php"><img src="./css/backbutton.png" class="backbutton" ></a>
+
 </body>
 
 <script defer> 
     let chips, bank;
     let dealer = [], player = []; 
     let stepCounter = 0, howManyCardsDisclosed = 0;
+    let username; 
 
     // Retrieve username from local storage and bank money from database
     window.onload = function() {
         if (typeof(Storage) !== "undefined") {
-            if (localStorage.getItem("username") === null) {
+            if (localStorage.getItem("username") == null) {
                 // login page url 
-                window.location.href = "";
+                window.location.href = "../Roulette/login.html";
             }else{
-                let username = localStorage.getItem("username");
+                username = localStorage.getItem("username");
+                username = username.slice(1,-1);
+                // write the bank money to local storage 
                 getBankMoneyFromServer(username);
+
+                // retreive the bank money from local storage
+                bank = localStorage.getItem("bank") ? parseInt(localStorage.getItem("bank")) : 1000;
+
                 document.getElementById("bank").innerHTML = `Bank: ${bank}`;
                 if(bank <= 0){
                     document.getElementById("reset").style.display = "inline-block";
@@ -239,7 +248,7 @@
             }
 
             // Game Ended and update the bank money to server
-            updateBankMoneyToServer(bank); 
+            updateBankMoneyToServer(username, bank); 
         }
     }
 
@@ -329,18 +338,25 @@
     function getBankMoneyFromServer(username) {
         const xhttp = new XMLHttpRequest();
         xhttp.onload = function () {
-            bank = parseInt(this.responseText) || 1000; 
-        }
-        xhttp.open("GET", "baccarat.php?username="+encodeURIComponent(username), true);
+            if (this.status === 200) {
+                // Parse the response JSON
+                const response = JSON.parse(this.responseText);
+                
+                if (response.bank !== undefined) {
+                    // Store the bank amount in localStorage
+                    localStorage.setItem("bank", response.bank);
+                }
+            } 
+        };
+        xhttp.open("GET", "baccarat.php?username="+ username, true);
         xhttp.send();
     }
 
-    function updateBankMoneyToServer(bank) {
-        let username = localStorage.getItem("username");
+    function updateBankMoneyToServer(username, bank) {
         const xhttp = new XMLHttpRequest();
         xhttp.open("POST", "baccarat.php", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhttp.send(`username=${encodeURIComponent(username)}&bank=${encodeURIComponent(bank)}`);
+        xhttp.send(`username=${username}&bank=${bank}`);
     }
 
 </script>
