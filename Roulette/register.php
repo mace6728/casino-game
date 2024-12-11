@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   if ($stmt->execute()) {
     echo "<script>
       alert('Register successful!');
-      window.location.href = 'index.php';
+      window.location.href = '../lobby/index.php';
     </script>";
   } else {
     echo "<script>alert('Registration failed. Please try again.'); window.location.href = 'register.html';</script>";

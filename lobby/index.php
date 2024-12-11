@@ -7,17 +7,27 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  
+  <h1> Online Casino </h1> 
+  <div class="logout">
+    <a href="../Roulette/logout.php"> logout </a>
+  </div>
+
   <div class="image-container" style="left: 15%; bottom: 5%;">
     <a href="../Sic_Bo/index.php"><img src="SicBo.png" alt="SicBo" class="hover-image"></a>
   </div>
+
   <div class="image-container" style="left: 15%; top: 5%;">
     <a href="../Roulette/index.php"><img src="Roulette.png" alt="Roulette" class="hover-image"></a>
   </div>
+
   <div class="image-container" style="right: 15%; top: 5%;">
     <a href="../Baccarat/baccarat.html"><img src="Baccarat_logo 1.png" alt="Baccarat" class="hover-image"></a>
   </div>
+
   <div class="image-container" style="right: 15%; bottom: 3%;">
     <button><img src="blackjack.png" alt="blackjack" class="hover-image"></button>
   </div>
+
 </body>
 </html>

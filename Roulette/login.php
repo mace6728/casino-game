@@ -28,7 +28,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['username'] = $username;
             $_SESSION['chips'] = $chips;
 
-            header("Location: index.php");
+            // write username to cookie 
+            setcookie("username", $username, time()+86400*30);
+
+            header("Location: ../lobby/index.php");
             exit;
         } else {
             echo "<script>alert('Invalid password.'); window.location.href = 'login.html';</script>";
