@@ -17,10 +17,7 @@ session_start();
   <!-- 導航欄 -->
   <nav class="navbar">
     <ul>
-      <li><a href="index.php">Home</a></li>
-      <li><a href="login.html">Login</a></li>
-      <li><a href="register.html">Register</a></li>
-      <li><a href="logout.php">Logout</a></li>
+      <li><a href="../lobby/index.php">Lobby</a></li>
     </ul>
   </nav>
 

@@ -1,30 +1,126 @@
+/* style.css */
+
+/* CSS Variables for Consistent Theming */
+:root {
+  --primary-font: "Arial, sans-serif";
+  --primary-color: #254a1d;
+  --secondary-color: #ecf0f1;
+  --accent-color: #213f3a;
+  --hover-color: #1abc9c;
+  --button-hover-bg: #2e502c;
+  --button-active-bg: #1abc9c;
+  --pointer-color: #e74c3c;
+  --disabled-color: #7f8c8d;
+  --box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  --transition-duration: 0.3s;
+}
+
+/* Reset and Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body {
+  font-family: var(--primary-font);
+  text-align: center;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  min-height: 100vh;
+  padding-top: 60px; /* Space for fixed navbar */
+  position: relative;
+}
+
+/* Navigation Bar Styling */
+.navbar {
+  position: fixed; /* Fixes the navbar to the top */
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: var(--accent-color);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  z-index: 1000; /* Ensures navbar stays above other elements */
+}
+
+.navbar ul {
+  list-style-type: none;
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
-  background: radial-gradient(circle, #37a837, #146214 40%, #073b07 80%);  
+  padding: 14px 0;
 }
 
+.navbar li {
+  margin: 0 15px;
+}
+
+.navbar a {
+  color: var(--secondary-color);
+  text-decoration: none;
+  font-size: 1.1em;
+  padding: 8px 16px;
+  transition: background-color var(--transition-duration), transform var(--transition-duration), box-shadow var(--transition-duration);
+  border-radius: 4px;
+}
+
+.navbar a:hover,
+.navbar a.active {
+  background-color: var(--primary-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Main Heading */
+h1 {
+  margin: 80px 0 160px 0;
+  font-size: 3em;
+  color: var(--secondary-color);
+}
+
+/* Games Container */
+.games-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Individual Game Image Container */
 .image-container {
-  position: absolute;
-  width: 25%;
+  position: relative;
+  width: 200px; /* Adjust as needed */
+  cursor: pointer;
 }
 
-button {
-  border: none; 
-  background-color: rgba(0, 0, 0, 0);
-}
-
-.hover-image {
-  display: block;
+.image-container img {
   width: 100%;
   height: auto;
-  filter: drop-shadow(0 0 0 transparent); /*初始狀態：無陰影 */
-  transition: filter 0.3s ease;
+  transition: filter var(--transition-duration);
 }
 
-.hover-image:hover {
-  filter: drop-shadow(0 0 20px yellow); /*輪廓加上陰影 */
+.image-container img:hover {
+  filter: drop-shadow(0 0 20px yellow);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navbar ul {
+    flex-direction: column;
+  }
+
+  .navbar li {
+    margin: 10px 0;
+  }
+
+  .games-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .image-container {
+    width: 80%;
+  }
 }
