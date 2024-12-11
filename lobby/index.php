@@ -2,32 +2,51 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Casino</title>
   <link rel="stylesheet" href="style.css">
+  <!-- Remove redundant or conflicting stylesheets -->
+  <!-- <link rel="stylesheet" href="../Roulette/style.css"> -->
 </head>
 <body>
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <ul>
+      <li><a href="index.php">Lobby</a></li>
+      <li><a href="../Roulette/login.html">Login</a></li>
+      <li><a href="../Roulette/register.html">Register</a></li>
+      <li><a href="../lobby/index.php">Logout</a></li>
+    </ul>
+  </nav>
+
+  <!-- Main Content -->
+  <h1>Online Casino</h1> 
+
+  <div class="games-container">
+    <div class="image-container">
+      <a href="../Sic_Bo/index.php">
+        <img src="SicBo.png" alt="SicBo" class="hover-image">
+      </a>
+    </div>
+
+    <div class="image-container">
+      <a href="../Roulette/index.php">
+        <img src="Roulette.png" alt="Roulette" class="hover-image">
+      </a>
+    </div>
+
+    <div class="image-container">
+      <a href="../Baccarat/baccarat.html">
+        <img src="Baccarat_logo1.png" alt="Baccarat" class="hover-image">
+      </a>
+    </div>
+
+    <div class="image-container">
+      <button>
+        <img src="blackjack.png" alt="Blackjack" class="hover-image">
+      </button>
+    </div>
+  </div>
   
-  <h1> Online Casino </h1> 
-  <div class="logout">
-    <a href="../Roulette/logout.php"> logout </a>
-  </div>
-
-  <div class="image-container" style="left: 15%; bottom: 5%;">
-    <a href="../Sic_Bo/index.php"><img src="SicBo.png" alt="SicBo" class="hover-image"></a>
-  </div>
-
-  <div class="image-container" style="left: 15%; top: 5%;">
-    <a href="../Roulette/index.php"><img src="Roulette.png" alt="Roulette" class="hover-image"></a>
-  </div>
-
-  <div class="image-container" style="right: 15%; top: 5%;">
-    <a href="../Baccarat/baccarat.html"><img src="Baccarat_logo 1.png" alt="Baccarat" class="hover-image"></a>
-  </div>
-
-  <div class="image-container" style="right: 15%; bottom: 3%;">
-    <button><img src="blackjack.png" alt="blackjack" class="hover-image"></button>
-  </div>
-
 </body>
 </html>
