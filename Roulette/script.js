@@ -29,9 +29,10 @@ const betForm = document.getElementById("betForm");
 const betTypeInput = document.getElementById("bet_type");
 const betNumberInput = document.getElementById("bet_number");
 const resultDiv = document.getElementById("result");
-const betButtons = document.querySelectorAll(".bet-btn");
+const betButtons = document.querySelectorAll(".button");
 const exactNumberOptions = document.querySelector(".exact-number-options");
 const numbersGrid = document.querySelector(".numbers-grid");
+const submitButton = document.querySelector(".bet-btn");
 
 let selectedBetType = null;
 let selectedExactNumber = null;
@@ -138,6 +139,7 @@ rouletteNumbers.forEach((slot, index) => {
 
 betForm.addEventListener("submit", function (e) {
   e.preventDefault();
+  submitButton.disabled = true;
   const betAmount = document.getElementById("bet_amount").value;
   const betType = document.getElementById("bet_type").value;
   const betNumber = document.getElementById("bet_number").value;
@@ -165,6 +167,7 @@ betForm.addEventListener("submit", function (e) {
 
   // 在旋轉結束後確定贏家
   setTimeout(() => {
+    submitButton.disabled = false; // Re-enable the bet button after spinning
     circle.classList.remove("spinning");
     const actualRotation = (rotation - 5) % 360;
     const index = Math.floor((actualRotation / 360) * rouletteNumbers.length);

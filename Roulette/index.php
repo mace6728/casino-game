@@ -31,7 +31,12 @@ session_start();
 
     <!-- 指針 -->
     <div class="pointer"></div>
-
+    <div class="small-square1"></div> <!-- New Small Circle Element -->
+    <div class="small-square2"></div> <!-- New Small Circle Element -->
+    <div class="small-square3"></div> <!-- New Small Circle Element -->
+    <div class="small-square4"></div> <!-- New Small Circle Element -->
+    <div class="small-square5"></div> <!-- New Small Circle Element -->
+    <div class="small-square6"></div> <!-- New Small Circle Element -->
     <div class="circle"></div>
 
     <form id="betForm">
@@ -39,20 +44,20 @@ session_start();
       <input type="hidden" name="bet_type" id="bet_type" />
       <input type="hidden" name="bet_number" id="bet_number" />
       <label for="bet_amount">Bet Amount:</label>
-      <input type="number" name="bet_amount" id="bet_amount" required min="1" />
-      <button type="submit">Start</button>
+      <input type="number" name="bet_amount" id="bet_amount"  required min="1" />
+      <button type="submit" class="bet-btn">Start</button>
     </form>
 
     <div class="betting-board">
       <h2>Place Your Bets</h2>
       <div class="bet-options">
-        <button class="bet-btn" data-bet="red">Red</button>
-        <button class="bet-btn" data-bet="black">Black</button>
-        <button class="bet-btn" data-bet="even">Even</button>
-        <button class="bet-btn" data-bet="odd">Odd</button>
-        <button class="bet-btn" data-bet="big">Big (19-36)</button>
-        <button class="bet-btn" data-bet="small">Small (1-18)</button>
-        <button class="bet-btn" data-bet="exact">Exact Number</button>
+        <button class="button" data-bet="red">Red</button>
+        <button class="button" data-bet="black">Black</button>
+        <button class="button" data-bet="even">Even</button>
+        <button class="button" data-bet="odd">Odd</button>
+        <button class="button" data-bet="big">Big (19-36)</button>
+        <button class="button" data-bet="small">Small (1-18)</button>
+        <button class="button" data-bet="exact">Exact Number</button>
       </div>
     </div>
 
