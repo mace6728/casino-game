@@ -115,9 +115,21 @@ h1 {
   height: auto;
   transition: filter var(--transition-duration);
   transition: transform var(--transition-duration);
+  animation: glow 5s infinite;
 }
 
+@keyframes glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 0px yellow);
+  }
+  50% {
+    filter: drop-shadow(0 0 10px yellow);
+  }
+}
+
+
 .image-container img:hover {
+  animation: none;
   filter: drop-shadow(0 0 20px yellow);
   transform: scale(1.05);
 }

@@ -32,25 +32,25 @@
 
   <div class="games-container">
     <div class="image-container">
-      <a href="../Sic_Bo/index.php">
+      <a href="../Sic_Bo/index.php?reload=true">
         <img src="SicBo.png" alt="SicBo" class="hover-image">
       </a>
     </div>
 
     <div class="image-container">
-      <a href="../Roulette/index.php">
+      <a href="../Roulette/index.php?reload=true">
         <img src="Roulette.png" alt="Roulette" class="hover-image">
       </a>
     </div>
 
     <div class="image-container">
-      <a href="../Baccarat/baccarat.html">
+      <a href="../Baccarat/baccarat.html?reload=true">
         <img src="Baccarat_logo1.png" alt="Baccarat" class="hover-image">
       </a>
     </div>
 
     <div class="image-container">
-      <a href="../Blackjack/index.html">
+      <a href="../Blackjack/index.html?reload=true">
         <img src="blackjack.png" alt="Baccarat" class="hover-image">
       </a>
     </div>

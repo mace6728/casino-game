@@ -76,13 +76,12 @@
                 // login page url 
                 window.location.href = "../Roulette/login.html";
             }else{
-                username = localStorage.getItem("username");
-                username = username.slice(1,-1);
+                username = localStorage.getItem("username").slice(1,-1);
+
                 // write the bank money to local storage 
                 getBankMoneyFromServer(username);
-
                 // retreive the bank money from local storage
-                bank = localStorage.getItem("bank") ? parseInt(localStorage.getItem("bank")) : 1000;
+                bank = parseInt(localStorage.getItem("bank"));
 
                 document.getElementById("bank").innerHTML = `Bank: ${bank}`;
                 if(bank <= 0){
@@ -308,6 +307,7 @@
         localStorage.setItem("bank", bank);
         document.getElementById("bank").innerHTML = `Bank: ${bank}`;
         document.getElementById("reset").style.display = "none";
+        updateBankMoneyToServer(username, bank); 
         resetGame();
     }
 
@@ -348,13 +348,13 @@
                 }
             } 
         };
-        xhttp.open("GET", "baccarat.php?username="+ username, true);
+        xhttp.open("GET", "baccarat.php?username="+ username, false);
         xhttp.send();
     }
 
     function updateBankMoneyToServer(username, bank) {
         const xhttp = new XMLHttpRequest();
-        xhttp.open("POST", "baccarat.php", true);
+        xhttp.open("POST", "baccarat.php", false);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send(`username=${username}&bank=${bank}`);
     }

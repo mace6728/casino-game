@@ -1,19 +1,17 @@
-<!--
-110550124 林家甫 第4次作業 11/17
-110550124 Jeff Lin The Fourth Homework 11/17
--->
-
 <!DOCTYPE html>
 <html>
 <head> 
     <meta charset="utf-8">
-    <title>HW4_110550124_林家甫</title>
+    <title> Blackjack </title>
     <link rel="stylesheet" href="game.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong">
 </head>
 
 <body> 
-    <h2 id="bank">Bank: </h2>
-    <h2 id="pot">Pot: </h2>
+    <h1 style="font-family: Sofia; font-size: 3em; color:rgb(255, 132, 0) ; margin: 15px;"> BlackJack </h1>
+    
+    <h2 id="bank" style="top: 5px;">Bank: </h2>
+    <h2 id="pot" style="top: 40px;">Pot: </h2>
     <p id="count" style="color: lightgray; font-size: large;" >How much money do you want to bet?</p>
     <input id="inputBet" type="number" placeholder="Enter a positive number">
     <button id="firstBet" onclick="firstBet()">First Bet</button>
@@ -56,24 +54,37 @@
         <button class="close-button" onclick="closePopup()">Ok</button>
     </div>
 
+    <a href="../lobby/index.php"><img src="./BG/backbutton.png" class="backbutton" ></a>
 </body>
 
 <script> 
     let chips, bank;
     let dealer = [], player = []; 
     let stepCounter = 0;
+    let username; 
 
     window.onload = function() {
         // Retrieve bank money info from local storage
         if (typeof(Storage) !== "undefined") {
-            bank = localStorage.getItem("bank") ? parseInt(localStorage.getItem("bank")) : 1000;
-            document.getElementById("bank").innerHTML = `Bank: ${bank}`;
-            if(bank <= 0){
-                document.getElementById("reset").style.display = "inline-block";
+            if (localStorage.getItem("username") == null) {
+                // login page url 
+                window.location.href = "../Roulette/login.html";
+            }else{
+                username = localStorage.getItem("username").slice(1,-1);
+                
+                // write the bank money to local storage 
+                getBankMoneyFromServer(username);
+                // retreive the bank money from local storage
+                bank = parseInt(localStorage.getItem("bank"));
+
+                document.getElementById("bank").innerHTML = `Bank: ${bank}`;
+                if(bank <= 0){
+                    document.getElementById("reset").style.display = "inline-block";
+                }
             }
-        } else {
+        }else{
             document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
-        }
+        }        
     }
 
     function firstBet() {
@@ -285,6 +296,10 @@
         let playerJSON = JSON.stringify(player_cards_value);
         sessionStorage.setItem("playerJSON", playerJSON);
 
+        // Store the palyer money into database
+        updateBankMoneyToServer(username, bank); 
+
+
         // Hide player's decision to prevent misusing
         document.getElementById("firstBet").style.display = "inline-block";
         document.getElementById("hit").style.display = "none";
@@ -306,6 +321,7 @@
         localStorage.setItem("bank", bank);
         document.getElementById("bank").innerHTML = `Bank: ${bank}`;
         document.getElementById("reset").style.display = "none";
+        updateBankMoneyToServer(username, bank); 
         resetGame();
     }
 
@@ -333,6 +349,30 @@
         }
 
         return ans;
+    }
+    
+    function getBankMoneyFromServer(username) {
+        const xhttp = new XMLHttpRequest();
+        xhttp.onload = function () {
+            if (this.status === 200) {
+                // Parse the response JSON
+                const response = JSON.parse(this.responseText);
+                
+                if (response.bank !== undefined) {
+                    // Store the bank amount in localStorage
+                    localStorage.setItem("bank", response.bank);
+                }
+            } 
+        };
+        xhttp.open("GET", "blackjack.php?username="+ username, false);
+        xhttp.send();
+    }
+
+    function updateBankMoneyToServer(username, bank) {
+        const xhttp = new XMLHttpRequest();
+        xhttp.open("POST", "blackjack.php", false);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send(`username=${username}&bank=${bank}`);
     }
 
 </script>
