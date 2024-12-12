@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Casino</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
   <!-- Remove redundant or conflicting stylesheets -->
   <!-- <link rel="stylesheet" href="../Roulette/style.css"> -->
 </head>
@@ -42,9 +43,9 @@
     </div>
 
     <div class="image-container">
-      <button>
-        <img src="blackjack.png" alt="Blackjack" class="hover-image">
-      </button>
+      <a href="../Blackjack/index.html">
+        <img src="blackjack.png" alt="Baccarat" class="hover-image">
+      </a>
     </div>
   </div>
 
