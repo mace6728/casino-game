@@ -143,7 +143,7 @@ body {
     rgb(47, 117, 51) 20px
 );
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  z-index: -1; /* Ensure it's above the cross and other layers */
+  z-index: -10; /* Ensure it's above the cross and other layers */
   animation: pulse 2s infinite;
 }
 .small-square2 {
@@ -216,7 +216,7 @@ body {
     rgb(47, 117, 51) 20px
 );
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  z-index: -1; /* Ensure it's above the cross and other layers */
+  z-index: -10; /* Ensure it's above the cross and other layers */
   animation: pulse 2s infinite;
 }
 .small-square6 {
@@ -234,7 +234,7 @@ body {
     rgb(120, 120, 120) 20px
 );
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  z-index: 7; /* Ensure it's above the cross and other layers */
+  z-index: -10; /* Ensure it's above the cross and other layers */
   animation: pulse 2s infinite;
 }
 /* Pulse Animation for Small Circle */
@@ -608,4 +608,59 @@ body {
 .button:focus {
   outline: none;
   box-shadow: 0 0 0 3px rgba(22, 160, 133, 0.5);
+}
+
+
+.bet-magnification {
+  padding: 10px;
+  font-size: 16px;
+  width: 650px;
+  height: 100px;
+  background-color: rgba(255, 217, 0, 0.189); /* 金色半透明背景 */
+  border: 2px solid #FFD700; /* 金色邊框 */
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+  animation: magnify 2s infinite;
+  position: relative;
+  top: 50%;
+  left: 42.3%;
+  transform: translate(-50%, -0%);
+  z-index: -20;  
+}
+
+.bet-magnification35 {
+  padding: 10px;
+  font-size: 16px;
+  width: 150px;
+  height: 100px;
+  background-color: rgba(0, 132, 255, 0.189); /* 金色半透明背景 */
+  border: 2px solid var(--button-active-bg); /* 金色邊框 */
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 34, 255, 0.7);
+  animation: magnify 2s infinite;
+  position: absolute;
+  top: 80.8%;
+  left: 76.3%;
+  transform: translate(-50%, -0%);
+  z-index: -20;  
+}
+
+#space {
+  display: block;
+  width: 20px;
+}
+
+@keyframes magnify {
+  0% {
+      transform: translate(-50%, 70%) scale(1);
+      opacity: 1;
+  }
+  50% {
+      transform: translate(-50%, 70%) scale(1.05);
+      opacity: 0.7;
+  }
+  100% {
+      transform: translate(-50%, 70%) scale(1);
+      opacity: 1;
+  }
 }

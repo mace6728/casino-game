@@ -47,6 +47,9 @@ session_start();
 
     <div class="betting-board">
       <h2>Place Your Bets</h2>
+      
+      <div class="bet-magnification">2x Return</div>
+      <div class="bet-magnification35">35x Return!</div>
       <div class="bet-options">
         <button class="button" data-bet="red">Red</button>
         <button class="button" data-bet="black">Black</button>
@@ -54,6 +57,7 @@ session_start();
         <button class="button" data-bet="odd">Odd</button>
         <button class="button" data-bet="big">Big (19-36)</button>
         <button class="button" data-bet="small">Small (1-18)</button>
+        <h1 id="space"></h1>
         <button class="button" data-bet="exact">Exact Number</button>
       </div>
     </div>
