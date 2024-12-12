@@ -28,10 +28,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['username'] = $username;
             $_SESSION['chips'] = $chips;
 
-            // write username to cookie 
-            setcookie("username", $username, time()+86400*30);
 
-            header("Location: ../lobby/index.php");
+            // Store username in local storage and redirect
+            echo '<script type="text/javascript">
+                localStorage.setItem("username", JSON.stringify("'.$username.'"));
+                console.log("Username stored in localStorage.");
+                window.location.href = "../lobby/index.php";
+                </script>';
+
             exit;
         } else {
             echo "<script>alert('Invalid password.'); window.location.href = 'login.html';</script>";
