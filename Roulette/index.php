@@ -1,6 +1,11 @@
 <!-- index.php -->
 <?php
 session_start();
+
+if (!isset($_SESSION['username']) || !isset($_SESSION['chips'])) {
+  header("Location: login.html");
+  exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,7 +19,6 @@ session_start();
 
 <body>
 
-  <!-- 導航欄 -->
   <nav class="navbar">
     <ul>
       <li><a href="../lobby/index.php">Lobby</a></li>
@@ -26,7 +30,6 @@ session_start();
     <h3 id="username_display">Username:</h3>
     <h3 id="user_chips">Chips:</h3>
 
-    <!-- 指針 -->
     <div class="pointer"></div>
     <div class="small-square1"></div>
     <div class="small-square2"></div>

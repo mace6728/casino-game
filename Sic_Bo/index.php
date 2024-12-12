@@ -1,10 +1,9 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['username'])) {
-  die("<a href=\"../Roulette/login.html\" style=\"font-size:200%;\">Please Login!</a>");
-  // die("<script>header(\"Location: ../Roulette/login.html\");</script>");
-  exit;
+if (!isset($_SESSION['username']) || !isset($_SESSION['chips'])) {
+  header("Location: ../Roulette/login.html");
+  exit();
 }
 
 $username = $_SESSION['username'];

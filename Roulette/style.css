@@ -616,8 +616,8 @@ body {
   font-size: 16px;
   width: 650px;
   height: 100px;
-  background-color: rgba(255, 217, 0, 0.189); /* 金色半透明背景 */
-  border: 2px solid #FFD700; /* 金色邊框 */
+  background-color: rgba(255, 217, 0, 0.189);
+  border: 2px solid #FFD700;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
   animation: magnify 2s infinite;
@@ -633,8 +633,8 @@ body {
   font-size: 16px;
   width: 150px;
   height: 100px;
-  background-color: rgba(0, 132, 255, 0.189); /* 金色半透明背景 */
-  border: 2px solid var(--button-active-bg); /* 金色邊框 */
+  background-color: rgba(0, 132, 255, 0.189);
+  border: 2px solid var(--button-active-bg);
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 34, 255, 0.7);
   animation: magnify 2s infinite;
