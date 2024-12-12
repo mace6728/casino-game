@@ -7,8 +7,6 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <!-- Remove redundant or conflicting stylesheets -->
-  <!-- <link rel="stylesheet" href="../Roulette/style.css"> -->
 </head>
 <body>
   <!-- Navigation Bar -->
@@ -17,12 +15,11 @@
       <li><a href="index.php"><i class="fa fa-home"></i> Lobby</a></li>
       <li><a href="../Roulette/login.html"><i class="fa fa-sign-in"></i> Login</a></li>
       <li><a href="../Roulette/register.html"><i class="fa fa-user-plus"></i> Register</a></li>
-      <li><a href="../lobby/index.php"><i class="fa fa-sign-out"></i> Logout</a></li>
+      <li><a href="../Roulette/login.html"><i class="fa fa-sign-out"></i> Logout</a></li>
     </ul>
   </nav>
 
   <!-- Main Content -->
-  <!-- <h1>Online Casino</h1>  -->
   <img src="casino-background-Photoroom.png" style="text-align: center; width: 25%;">
 
   <div class="side-decoration left">♠️ ♥️ ♣️ ♦️ ♠️ ♥️ ♣️</div>
