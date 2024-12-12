@@ -15,7 +15,7 @@
       <li><a href="index.php"><i class="fa fa-home"></i> Lobby</a></li>
       <li><a href="../Roulette/login.html"><i class="fa fa-sign-in"></i> Login</a></li>
       <li><a href="../Roulette/register.html"><i class="fa fa-user-plus"></i> Register</a></li>
-      <li><a href="../Roulette/login.html"><i class="fa fa-sign-out"></i> Logout</a></li>
+      <li><a href="../Roulette/logout.php"><i class="fa fa-sign-out"></i> Logout</a></li>
     </ul>
   </nav>
 
