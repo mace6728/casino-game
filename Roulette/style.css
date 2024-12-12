@@ -14,7 +14,9 @@
   --transition-duration: 0.3s;
 }
 
+
 body {
+  padding-top: 60px; /* Space for fixed navbar */
   font-family: var(--primary-font);
   text-align: center;
   background-color: var(--primary-color);
@@ -338,7 +340,7 @@ body {
 
 /* Result Display */
 #result {
-  margin-top: 20px;
+  margin-top: 60px;
   font-size: 1.5em;
   color: var(--secondary-color);
   animation: fadeIn 1s ease-in-out;
@@ -475,7 +477,7 @@ body {
 
 .auth-container {
   width: 300px;
-  margin: 100px auto;
+  margin: 200px auto;
   padding: 30px;
   background-color: var(--accent-color);
   border-radius: 10px;
@@ -525,50 +527,9 @@ body {
   font-weight: bolder;
 }
 
-.navbar {
-  background-color: var(--accent-color);
-  overflow: hidden;
-}
-
-.navbar ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-.navbar li {
-  float: left;
-}
-
-.navbar li a {
-  display: block;
-  color: #ecf0f1;
-  text-align: center;
-  padding: 14px 20px;
-  text-decoration: none;
-  transition: background-color 0.3s;
-  margin: 0 15px;
-  font-weight: bold;
-  background-color: var(--accent-color);
-  border-radius: 5px;
-  transition: all 0.3s ease;
-}
-
-.navbar li a:hover {
-  background-color: var(--primary-color);
-  transform: translateY(-2px);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
-
-/* 清除浮動 */
-.navbar::after {
-  content: "";
-  clear: both;
-  display: table;
-}
-
 .button {
   padding: 12px 24px;
+  margin-top: 60px;
   background: linear-gradient(
     135deg,
     var(--accent-color) 0%,
@@ -579,6 +540,7 @@ body {
   color: var(--secondary-color);
   font-size: 1em;
   font-weight: bold;
+  position: relative;
   cursor: pointer;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   transition: transform var(--transition-duration),
@@ -621,9 +583,8 @@ body {
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
   animation: magnify 2s infinite;
-  position: relative;
-  top: 50%;
-  left: 42.3%;
+  position: absolute;
+  left: 325px;
   transform: translate(-50%, -0%);
   z-index: -20;  
 }
@@ -639,8 +600,7 @@ body {
   box-shadow: 0 0 10px rgba(0, 34, 255, 0.7);
   animation: magnify 2s infinite;
   position: absolute;
-  top: 80.8%;
-  left: 76.3%;
+  left: 80px;
   transform: translate(-50%, -0%);
   z-index: -20;  
 }
@@ -652,15 +612,68 @@ body {
 
 @keyframes magnify {
   0% {
-      transform: translate(-50%, 70%) scale(1);
+      transform: translate(-50%, -50%) scale(1);
       opacity: 1;
   }
   50% {
-      transform: translate(-50%, 70%) scale(1.05);
+      transform: translate(-50%, -50%) scale(1.05);
       opacity: 0.7;
   }
   100% {
-      transform: translate(-50%, 70%) scale(1);
+      transform: translate(-50%, -50%) scale(1);
       opacity: 1;
   }
+}
+
+.backbutton {
+  position: absolute; 
+  left: 2%; 
+  bottom: 2%; 
+  width: 5%;
+}
+.backbutton:hover {
+  transform: scale(1.1);  
+}
+.backbutton:active {
+  transform: scale(0.95);
+  opacity: 0.8;
+}
+
+
+/* Navigation Bar Styling */
+.navbar {
+  position: fixed; /* Fixes the navbar to the top */
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: var(--accent-color);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  z-index: 1000; /* Ensures navbar stays above other elements */
+}
+
+.navbar ul {
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+  padding: 14px 0;
+}
+
+.navbar li {
+  margin: 0 15px;
+}
+
+.navbar a {
+  color: var(--secondary-color);
+  text-decoration: none;
+  font-size: 1.1em;
+  padding: 8px 16px;
+  transition: background-color var(--transition-duration), transform var(--transition-duration), box-shadow var(--transition-duration);
+  border-radius: 4px;
+}
+
+.navbar a:hover,
+.navbar a.active {
+  background-color: var(--primary-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }

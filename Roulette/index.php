@@ -18,13 +18,6 @@ if (!isset($_SESSION['username']) || !isset($_SESSION['chips'])) {
 </head>
 
 <body>
-
-  <nav class="navbar">
-    <ul>
-      <li><a href="../lobby/index.php">Lobby</a></li>
-    </ul>
-  </nav>
-
   <div>
     <h1 class="title">Roulette Game</h1>
     <h3 id="username_display">Username:</h3>
@@ -44,29 +37,30 @@ if (!isset($_SESSION['username']) || !isset($_SESSION['chips'])) {
       <input type="hidden" name="bet_type" id="bet_type" />
       <input type="hidden" name="bet_number" id="bet_number" />
       <label for="bet_amount">Bet Amount:</label>
-      <input type="number" name="bet_amount" id="bet_amount"  required min="1" />
+      <input type="number" name="bet_amount" id="bet_amount" required min="1" />
       <button type="submit" class="bet-btn">Start</button>
     </form>
 
     <div class="betting-board">
       <h2>Place Your Bets</h2>
-      
-      <div class="bet-magnification">2x Return</div>
-      <div class="bet-magnification35">35x Return!</div>
       <div class="bet-options">
-        <button class="button" data-bet="red">Red</button>
+        <button class="button" data-bet="red">
+          <div class="bet-magnification">2x Return</div>Red
+        </button>
         <button class="button" data-bet="black">Black</button>
         <button class="button" data-bet="even">Even</button>
         <button class="button" data-bet="odd">Odd</button>
         <button class="button" data-bet="big">Big (19-36)</button>
         <button class="button" data-bet="small">Small (1-18)</button>
         <h1 id="space"></h1>
-        <button class="button" data-bet="exact">Exact Number</button>
+        <button class="button" data-bet="exact">
+          <div class="bet-magnification35">35x Return!</div>Exact Number
+        </button>
       </div>
     </div>
 
     <div class="exact-number-options" style="display: none">
-      <h3>Select a Number</h3>
+      <h3 style="margin-top: 50px;">Select a Number</h3>
       <div class="numbers-grid">
       </div>
     </div>
@@ -74,6 +68,7 @@ if (!isset($_SESSION['username']) || !isset($_SESSION['chips'])) {
     <div id="result"></div>
     <h3 id="payout"></h3>
   </div>
+  <a href="../lobby/index.php"><img src="../Baccarat/css/backbutton.png" class="backbutton"></a>
   <script src="script.js"></script>
 </body>
 

@@ -89,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Prepare response
     $response = array(
-        'chips' => isset($_SESSION['chips']) ? $_SESSION['chips'] : 1000
+        'chips' => $_SESSION['chips']
     );
     echo json_encode($response);
 }
