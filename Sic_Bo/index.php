@@ -17,7 +17,7 @@ if ($conn->connect_error) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'onload') {
     // 從資料庫取得用戶的 Chips
     $stmt = $conn->prepare('SELECT chips FROM users WHERE username = ?');
-    $stmt->bind_param('i', $username);
+    $stmt->bind_param('s', $username);
     $stmt->execute();
     $result = $stmt->get_result();
     
