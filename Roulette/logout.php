@@ -3,6 +3,10 @@ session_start();
 $_SESSION = []; 
 session_unset();
 session_destroy();
-header("Location: login.html");
+echo '<script type="text/javascript">
+    localStorage.clear();
+    console.log("Username stored in localStorage.");
+    window.location.href = "./login.html";
+    </script>';
 exit;
 ?>
