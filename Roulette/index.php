@@ -28,12 +28,12 @@ session_start();
 
     <!-- 指針 -->
     <div class="pointer"></div>
-    <div class="small-square1"></div> <!-- New Small Circle Element -->
-    <div class="small-square2"></div> <!-- New Small Circle Element -->
-    <div class="small-square3"></div> <!-- New Small Circle Element -->
-    <div class="small-square4"></div> <!-- New Small Circle Element -->
-    <div class="small-square5"></div> <!-- New Small Circle Element -->
-    <div class="small-square6"></div> <!-- New Small Circle Element -->
+    <div class="small-square1"></div>
+    <div class="small-square2"></div>
+    <div class="small-square3"></div>
+    <div class="small-square4"></div>
+    <div class="small-square5"></div>
+    <div class="small-square6"></div>
     <div class="circle"></div>
 
     <form id="betForm">
@@ -58,15 +58,14 @@ session_start();
       </div>
     </div>
 
-    <!-- 新增具體數字選項容器 -->
     <div class="exact-number-options" style="display: none">
       <h3>Select a Number</h3>
       <div class="numbers-grid">
-        <!-- 使用 JavaScript 動態生成數字按鈕 -->
       </div>
     </div>
 
     <div id="result"></div>
+    <h3 id="payout"></h3>
   </div>
   <script src="script.js"></script>
 </body>

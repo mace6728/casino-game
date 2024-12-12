@@ -33,6 +33,7 @@ const betButtons = document.querySelectorAll(".button");
 const exactNumberOptions = document.querySelector(".exact-number-options");
 const numbersGrid = document.querySelector(".numbers-grid");
 const submitButton = document.querySelector(".bet-btn");
+const payout = document.getElementById("payout");
 
 let selectedBetType = null;
 let selectedExactNumber = null;
@@ -139,7 +140,6 @@ rouletteNumbers.forEach((slot, index) => {
 
 betForm.addEventListener("submit", function (e) {
   e.preventDefault();
-  submitButton.disabled = true;
   const betAmount = document.getElementById("bet_amount").value;
   const betType = document.getElementById("bet_type").value;
   const betNumber = document.getElementById("bet_number").value;
@@ -153,11 +153,8 @@ betForm.addEventListener("submit", function (e) {
     alert("Please select an exact number!");
     return;
   }
-
-  if (userId === null) {
-    alert("Please log in first.");
-    return;
-  }
+  
+  submitButton.disabled = true;
 
   // 生成隨機旋轉角度
   const rotation =
@@ -175,15 +172,17 @@ betForm.addEventListener("submit", function (e) {
       rouletteNumbers[
         (rouletteNumbers.length - index - 1) % rouletteNumbers.length
       ].number;
-
+    let payoutResult;
     if (betType === "red" || betType === "black") {
       const winningColor = rouletteNumbers.find(
         (num) => num.number === winningNumber
       )?.color;
       if (betType === winningColor) {
         resultDiv.textContent = `You won! The color was ${winningColor}.`;
+        payoutResult = betAmount * 2;
       } else {
         resultDiv.textContent = `You lost. The color was ${winningColor}.`;
+        payoutResult = betAmount * 0;
       }
     } else if (betType === "even" || betType === "odd") {
       if (winningNumber === "0" || winningNumber === "00") {
@@ -193,15 +192,18 @@ betForm.addEventListener("submit", function (e) {
         const isEven = num % 2 === 0;
         if ((betType === "even" && isEven) || (betType === "odd" && !isEven)) {
           resultDiv.textContent = `You won! The number was ${winningNumber}, which is ${betType}.`;
+          payoutResult = betAmount * 2;
         } else {
           resultDiv.textContent = `You lost. The number was ${winningNumber}, which is ${
             isEven ? "even" : "odd"
           }.`;
+          payoutResult = betAmount * 0;
         }
       }
     } else if (betType === "big" || betType === "small") {
       if (winningNumber === "0" || winningNumber === "00") {
         resultDiv.textContent = `You lost. The number was ${winningNumber}.`;
+        payoutResult = betAmount * 0;
       } else {
         const num = parseInt(winningNumber);
         if (
@@ -209,19 +211,24 @@ betForm.addEventListener("submit", function (e) {
           (betType === "small" && num >= 1 && num <= 18)
         ) {
           resultDiv.textContent = `You won! The number was ${winningNumber}, which is ${betType}.`;
+          payoutResult = betAmount * 2;
         } else {
           resultDiv.textContent = `You lost. The number was ${winningNumber}, which is ${
             num >= 19 && num <= 36 ? "big" : "small"
           }.`;
+          payoutResult = betAmount * 0;
         }
       }
     } else if (betType === "exact") {
       if (betNumber === winningNumber) {
+        payoutResult = betAmount * 35;
         resultDiv.textContent = `You won! The number was ${winningNumber}.`;
       } else {
+        payoutResult = 0;
         resultDiv.textContent = `You lost. The number was ${winningNumber}.`;
       }
     }
+    payout.textContent = `Payout : ${payoutResult}`;
 
     fetch("roulette.php", {
       method: "POST",
@@ -257,6 +264,5 @@ betForm.addEventListener("submit", function (e) {
       .catch((error) => {
         console.error("Error processing the bet:", error);
       });
-    // 這裡可以添加與後端交互的代碼，例如通過 AJAX 發送下注結果
   }, 4000);
 });
