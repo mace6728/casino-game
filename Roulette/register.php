@@ -6,13 +6,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $username = trim($_POST['username']);
   $password = $_POST['password'];
 
-  // 驗證輸入
+  // verify login
   if (empty($username) || empty($password)) {
     echo "<script>alert('Please fill in all fields.'); window.location.href = 'register.html';</script>";
     exit;
   }
 
-  // 檢查用戶是否已存在
+  // check if the user has already existed
   $stmt = $conn->prepare("SELECT id FROM users WHERE username = ?");
   $stmt->bind_param("s", $username);
   $stmt->execute();
@@ -25,10 +25,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   }
   $stmt->close();
 
-  // 哈希密碼
+  // hashed password
   $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-  // 插入新用戶
+  // register a new account 
   $stmt = $conn->prepare("INSERT INTO users (username, password, chips) VALUES (?, ?, 1000)");
   $stmt->bind_param("ss", $username, $hashed_password);
 

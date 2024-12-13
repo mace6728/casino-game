@@ -41,7 +41,7 @@ let selectedExactNumber = null;
 const userIdInput = document.getElementById("user_id");
 const userId = userIdInput ? userIdInput.value : null;
 
-// 生成具體數字按鈕
+// generate nubmer buttons
 const numbers = ["00", ...Array.from({ length: 37 }, (_, i) => i.toString())];
 numbers.forEach((number) => {
   const btn = document.createElement("button");
@@ -51,7 +51,6 @@ numbers.forEach((number) => {
   numbersGrid.appendChild(btn);
 
   btn.addEventListener("click", () => {
-    // 切換選中的數字按鈕樣式
     document
       .querySelectorAll(".number-btn")
       .forEach((b) => b.classList.remove("active"));
@@ -62,14 +61,12 @@ numbers.forEach((number) => {
   });
 });
 
-// 監聽下注按鈕點擊
+// add event listener for every button is clicked
 betButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    // 切換選中的下注按鈕樣式
     betButtons.forEach((btn) => btn.classList.remove("active"));
     button.classList.add("active");
 
-    // 設定選中的下注類型
     selectedBetType = button.getAttribute("data-bet");
     betTypeInput.value = selectedBetType;
 
@@ -124,13 +121,12 @@ const rouletteNumbers = [
   { number: "2", color: "black" },
 ];
 
-// 添加數字到輪盤
+// add number to roulette
 rouletteNumbers.forEach((slot, index) => {
   const angle = (360 / rouletteNumbers.length) * index;
   const el = document.createElement("div");
   el.classList.add("number");
 
-  // 調整 transform，使數字底部面向中心
   el.style.transform = `rotate(${angle}deg) translate(130px) rotate(-${angle}deg) translate(-50%, -50%)`;
   el.style.top = "50%";
   el.style.left = "50%";
@@ -156,13 +152,13 @@ betForm.addEventListener("submit", function (e) {
   
   submitButton.disabled = true;
 
-  // 生成隨機旋轉角度
+  // generate rotation angle 
   const rotation =
     360 * Math.floor(Math.random() * 10) + Math.floor(Math.random() * 360);
-  circle.style.transform = `rotate(${rotation - 90}deg)`; // 減去90度以配合初始旋轉
+  circle.style.transform = `rotate(${rotation - 90}deg)`; // minus 90 degrees for the offset
   circle.classList.add("spinning");
 
-  // 在旋轉結束後確定贏家
+  // after spinning check if the player win
   setTimeout(() => {
     submitButton.disabled = false; // Re-enable the bet button after spinning
     circle.classList.remove("spinning");

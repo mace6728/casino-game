@@ -1,4 +1,5 @@
 <?php
+// clear all the session and local storage we use
 session_start();
 $_SESSION = []; 
 session_unset();

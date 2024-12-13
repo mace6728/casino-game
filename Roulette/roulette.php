@@ -99,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 function calculatePayout($betType, $betNumber, $winningNumber)
 {
-    // 定義贏的屬性
+    // Define winning attribute
     $winningColor = getColor($winningNumber);
     $winningEvenOdd = getEvenOdd($winningNumber);
     $winningBigSmall = getBigSmall($winningNumber);

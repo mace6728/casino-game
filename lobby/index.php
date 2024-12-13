@@ -22,6 +22,7 @@
   <!-- Main Content -->
   <img src="casino-background-Photoroom.png" style="text-align: center; width: 25%;">
 
+  <!-- Side Decoration -->
   <div class="side-decoration left">♠️ ♥️ ♣️ ♦️ ♠️ ♥️ ♣️</div>
   <div class="side-decoration right">♦️ ♣️ ♥️ ♠️ ♦️ ♣️ ♥️</div>
 
@@ -55,6 +56,6 @@
 
 </body>
 <footer class="footer">
-  <p>© 2024 Casino Games, All rights reserved.</p>
+  <p>© 2024 Casino Games. All rights reserved.</p>
 </footer>
 </html>

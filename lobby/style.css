@@ -1,5 +1,3 @@
-/* style.css */
-
 /* CSS Variables for Consistent Theming */
 :root {
   --primary-font: "Arial, sans-serif";
@@ -164,7 +162,7 @@ h1 {
   width: 100%;
 }
 
-/* 左右側邊裝飾 */
+/* Side decoration */
 .side-decoration {
   position: absolute;
   top: 5%;
@@ -181,7 +179,7 @@ h1 {
   right: 10px;
 }
 
-/* 分隔線 */
+/* separation line */
 .separator-line {
   width: 80%;
   height: 2px;
