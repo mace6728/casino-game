@@ -23,9 +23,6 @@
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             if ($result) {
                 echo json_encode(['bank' => $result['chips']]);
-                $_SESSION['username'] = $username;
-                $_SESSION['chips'] = $result['chips'];
-
             } else {
                 echo json_encode(['bank' => 0]);
             }
@@ -38,8 +35,6 @@
     if(array_key_exists('username', $_POST) && array_key_exists('bank', $_POST)){
         $username = $_POST['username'];
         $bank = intval($_POST['bank']);
-        $_SESSION['username'] = $username;
-        $_SESSION['chips'] = $result['chips'];
 
         try {
             $updateQuery = "UPDATE users SET chips = :newBankAmount WHERE username = :username";

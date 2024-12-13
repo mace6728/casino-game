@@ -11,7 +11,7 @@
     <h1 style="font-family: Sofia; font-size: 3em; color:rgb(255, 132, 0) ; margin: 15px;"> Baccarat </h1>
     <h2 id="bank" style="top: 5px;">Bank: </h2>
     <h2 id="pot" style="top: 40px;">Pot: </h2>
-    <p id="count" style="color: lightgray; font-size: large;" >How much money do you want to bet?</p>
+    <p id="count" style="color: lightgray; font-size: large;"> How much money do you want to bet? </p>
     <input id="inputBet" type="number" placeholder="Enter a positive number">
 
     <!-- show or hide game history -->
@@ -338,7 +338,7 @@
     function getBankMoneyFromServer(username) {
         const xhttp = new XMLHttpRequest();
         xhttp.onload = function () {
-            if (this.status === 200) {
+            if (this.status == 200) {
                 // Parse the response JSON
                 const response = JSON.parse(this.responseText);
                 
